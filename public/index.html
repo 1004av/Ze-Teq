@@ -1,10 +1,35 @@
-<!-- public/index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
-  <title>Ze-Teq</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DropRadar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h1>안녕하세요! Node.js 사이트입니다 🎉</h1>
+<body class="bg-gray-50">
+
+  <!-- 상단 네비게이션 바 -->
+  <nav class="bg-white shadow-md sticky top-0 z-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex justify-between items-center h-16">
+        <!-- 로고 -->
+        <div class="text-2xl font-bold text-blue-600">
+          DropRadar
+        </div>
+
+        <!-- 메뉴 -->
+        <div class="space-x-6 text-gray-700 font-medium">
+          <a href="/" class="hover:text-blue-600 transition">홈</a>
+          <a href="/research.html" class="hover:text-blue-600 transition">상품 리서치</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 콘텐츠 -->
+  <main class="p-10 text-center text-xl">
+    여기는 홈입니다. 기능을 추가해보세요.
+  </main>
+
 </body>
 </html>
