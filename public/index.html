@@ -23,6 +23,48 @@
       color: white;
       
     }
+    
+          /* 드롭다운 메뉴 스타일 */
+    #logo-dropdown-menu {
+      background: #ffffffee;
+      box-shadow:
+        0 10px 15px -3px rgba(49, 92, 253, 0.4),
+        0 4px 6px -2px rgba(49, 92, 253, 0.25);
+      border-radius: 20px;
+      border: 1px solid #cbd5e1;
+      padding: 20px;
+      width: 220px;
+      user-select: none;
+      z-index: 999;
+    }
+
+    /* 삼각형 꼬리 (드롭다운 포인터) */
+    .dropdown-tail {
+      position: absolute;
+      top: -12px;
+      left: 30px;
+      width: 20px;
+      height: 20px;
+      background: #ffffffee;
+      transform: rotate(45deg);
+      box-shadow: -2px -2px 3px #cbd5e1;
+      border-radius: 4px;
+      z-index: -1;
+    }
+
+    /* 드롭다운 애니메이션 */
+    .dropdown-enter {
+      opacity: 0;
+      transform: translateY(-15px);
+      pointer-events: none;
+    }
+    .dropdown-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
   </style>
 </head>
 <body class="bg-white">
@@ -74,6 +116,16 @@
           <div class="text-2xl font-bold text-blue-600">Ze-Teq</div>
         </a>
       </div>
+
+      <!-- 드롭다운 메뉴 -->
+<div id="logo-dropdown-menu" class="absolute top-16 left-10 dropdown-enter">
+  <div class="dropdown-tail"></div>
+  <div class="p-4">
+    <img src="logo-alt.png" alt="다른 로고" />
+    <p class="mt-4 text-center text-gray-700 font-semibold">Ze-Teq 브랜드 로고 변형</p>
+  </div>
+</div>
+
       
       <!-- 오른쪽 버튼 그룹 -->
       <div class="flex items-center space-x-4">
@@ -122,7 +174,35 @@
       iconMenu.classList.toggle('hidden');
       iconClose.classList.toggle('hidden');
     });
+    
+    const logoToggle = document.getElementById('logo-dropdown-toggle');
+    const logoMenu = document.getElementById('logo-dropdown-menu');
+    const dropdownArrow = document.getElementById('dropdown-arrow');
+
+    logoToggle.addEventListener('click', () => {
+      const isOpen = logoMenu.classList.contains('dropdown-enter-active');
+
+      if (isOpen) {
+        logoMenu.classList.remove('dropdown-enter-active');
+        logoMenu.classList.add('dropdown-enter');
+        dropdownArrow.classList.remove('rotate-180');
+      } else {
+        logoMenu.classList.remove('dropdown-enter');
+        logoMenu.classList.add('dropdown-enter-active');
+        dropdownArrow.classList.add('rotate-180');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!logoToggle.contains(e.target) && !logoMenu.contains(e.target)) {
+        logoMenu.classList.remove('dropdown-enter-active');
+        logoMenu.classList.add('dropdown-enter');
+        dropdownArrow.classList.remove('rotate-180');
+      }
+    });
   </script>
+      
 
 </body>
 </html>
+
