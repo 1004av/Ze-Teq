@@ -164,42 +164,31 @@
 
   <!-- JavaScript -->
   <script>
-    const toggleButton = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const iconMenu = document.getElementById('icon-menu');
-    const iconClose = document.getElementById('icon-close');
-
-    toggleButton.addEventListener('click', () => {
-      sidebar.classList.toggle('-translate-x-full');
-      iconMenu.classList.toggle('hidden');
-      iconClose.classList.toggle('hidden');
-    });
-    
     const logoToggle = document.getElementById('logo-dropdown-toggle');
-    const logoMenu = document.getElementById('logo-dropdown-menu');
-    const dropdownArrow = document.getElementById('dropdown-arrow');
+  const logoMenu = document.getElementById('logo-dropdown-menu');
+  const dropdownArrow = document.getElementById('dropdown-arrow');
 
-    logoToggle.addEventListener('click', () => {
-      const isOpen = logoMenu.classList.contains('dropdown-enter-active');
+  logoToggle.addEventListener('click', () => {
+    const isOpen = logoMenu.classList.contains('dropdown-enter-active');
+    if (isOpen) {
+      logoMenu.classList.remove('dropdown-enter-active');
+      logoMenu.classList.add('dropdown-enter');
+      dropdownArrow.classList.remove('rotate-180');
+    } else {
+      logoMenu.classList.remove('dropdown-enter');
+      logoMenu.classList.add('dropdown-enter-active');
+      dropdownArrow.classList.add('rotate-180');
+    }
+  });
 
-      if (isOpen) {
-        logoMenu.classList.remove('dropdown-enter-active');
-        logoMenu.classList.add('dropdown-enter');
-        dropdownArrow.classList.remove('rotate-180');
-      } else {
-        logoMenu.classList.remove('dropdown-enter');
-        logoMenu.classList.add('dropdown-enter-active');
-        dropdownArrow.classList.add('rotate-180');
-      }
-    });
+  document.addEventListener('click', (e) => {
+    if (!logoToggle.contains(e.target) && !logoMenu.contains(e.target)) {
+      logoMenu.classList.remove('dropdown-enter-active');
+      logoMenu.classList.add('dropdown-enter');
+      dropdownArrow.classList.remove('rotate-180');
+    }
+  });
 
-    document.addEventListener('click', (e) => {
-      if (!logoToggle.contains(e.target) && !logoMenu.contains(e.target)) {
-        logoMenu.classList.remove('dropdown-enter-active');
-        logoMenu.classList.add('dropdown-enter');
-        dropdownArrow.classList.remove('rotate-180');
-      }
-    });
   </script>
       
 
