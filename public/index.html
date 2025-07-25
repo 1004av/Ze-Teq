@@ -36,8 +36,13 @@
       width: 220px;
       user-select: none;
       z-index: 999;
+      position: absolute;
+      
+      top: 100%;
+      margin-top: 0.5rem;
     }
 
+    
 
     /* 드롭다운 애니메이션 클래스 */
     .dropdown-enter {
@@ -108,13 +113,15 @@
       </div>
 
       <!-- 드롭다운 메뉴 -->
-      <div id="logo-dropdown-menu" class="absolute top-16 left-10 dropdown-enter">
-        <div class="dropdown-tail"></div>
-        <div class="p-4">
-          <img src="logo2.png" alt="다른 로고" />
-          <p class="text-2xl font-bold text-blue-600">Ze-Teq COMMUNITY</p>
+          <div id="logo-dropdown-menu" class="dropdown-enter">
+        <div class="logo-box">
+          <div class="flex items-center space-x-2">
+            <img src="logo2.png" alt="Ze-Teq" class="h-10 w-auto" />
+            <span class="text-2xl font-bold text-blue-600">Ze-Teq COMMUNITY</span>
+          </div>
         </div>
       </div>
+
 
       <!-- 알림 및 로그인 버튼 -->
       <div class="flex items-center space-x-4">
@@ -193,3 +200,4 @@
 
 </body>
 </html>
+
