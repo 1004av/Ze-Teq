@@ -51,6 +51,15 @@
       pointer-events: auto;
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
+        /* 드롭다운 닫기 애니메이션 */
+    .dropdown-leave-active {
+      opacity: 0;
+      transform: translateY(-15px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+
   </style>
 </head>
 <body class="bg-white">
@@ -145,27 +154,41 @@
     const dropdownArrow = document.getElementById('dropdown-arrow');
 
     logoClickArea.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = logoMenu.classList.contains('dropdown-enter-active');
-      if (isOpen) {
-        logoMenu.classList.remove('dropdown-enter-active');
-        logoMenu.classList.add('dropdown-enter');
-        dropdownArrow.classList.remove('rotate-180');
-      } else {
-        logoMenu.classList.remove('dropdown-enter');
-        logoMenu.classList.add('dropdown-enter-active');
-        dropdownArrow.classList.add('rotate-180');
-      }
-    });
+  e.stopPropagation();
+  const isOpen = logoMenu.classList.contains('dropdown-enter-active');
+
+  if (isOpen) {
+    logoMenu.classList.remove('dropdown-enter-active');
+    logoMenu.classList.add('dropdown-leave-active');
+    dropdownArrow.classList.remove('rotate-180');
+
+    setTimeout(() => {
+      logoMenu.classList.remove('dropdown-leave-active');
+      logoMenu.classList.add('dropdown-enter');
+    }, 300); // 애니메이션 지속 시간과 일치
+  } else {
+    logoMenu.classList.remove('dropdown-enter', 'dropdown-leave-active');
+    logoMenu.classList.add('dropdown-enter-active');
+    dropdownArrow.classList.add('rotate-180');
+  }
+});
 
     // 외부 클릭 시 드롭다운 닫기
     document.addEventListener('click', (e) => {
-      if (!logoClickArea.contains(e.target) && !logoMenu.contains(e.target)) {
-        logoMenu.classList.remove('dropdown-enter-active');
+  if (!logoClickArea.contains(e.target) && !logoMenu.contains(e.target)) {
+    if (logoMenu.classList.contains('dropdown-enter-active')) {
+      logoMenu.classList.remove('dropdown-enter-active');
+      logoMenu.classList.add('dropdown-leave-active');
+      dropdownArrow.classList.remove('rotate-180');
+
+      setTimeout(() => {
+        logoMenu.classList.remove('dropdown-leave-active');
         logoMenu.classList.add('dropdown-enter');
-        dropdownArrow.classList.remove('rotate-180');
-      }
-    });
+      }, 300);
+    }
+  }
+});
+
   </script>
 
 </body>
