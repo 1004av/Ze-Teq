@@ -24,46 +24,32 @@
       color: white;
     }
 
-    /* 드롭다운 박스 스타일 */
-    #logo-dropdown-menu {
-      background: #ffffffee;
+    /* 드롭다운 전체 박스 */
+    #logo-dropdown-wrapper {
+      position: absolute;
+      top: 64px;
+      left: 0;
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
       box-shadow:
         0 10px 15px -3px rgba(49, 92, 253, 0.4),
         0 4px 6px -2px rgba(49, 92, 253, 0.25);
-      border-radius: 20px;
-      border: 1px solid #cbd5e1;
-      padding: 20px;
-      width: 220px;
-      user-select: none;
+      border-radius: 16px;
+      width: 280px;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: all 0.3s ease;
       z-index: 999;
     }
 
-    /* 드롭다운 말풍선 꼬리 */
-    .dropdown-tail {
-      position: absolute;
-      top: -12px;
-      left: 30px;
-      width: 20px;
-      height: 20px;
-      background: #ffffffee;
-      transform: rotate(45deg);
-      box-shadow: -2px -2px 3px #cbd5e1;
-      border-radius: 4px;
-      z-index: -1;
-    }
-
-    /* 드롭다운 애니메이션 클래스 */
-    .dropdown-enter {
-      opacity: 0;
-      transform: translateY(-15px);
-      pointer-events: none;
-    }
-    .dropdown-enter-active {
+    /* 열릴 때 활성화되는 상태 */
+    #logo-dropdown-wrapper.active {
       opacity: 1;
       transform: translateY(0);
       pointer-events: auto;
-      transition: opacity 0.3s ease, transform 0.3s ease;
     }
+
   </style>
 </head>
 <body class="bg-white">
@@ -100,10 +86,28 @@
           </svg>
         </button>
 
-        <!-- 로고 및 텍스트 클릭 영역 -->
-        <div id="logo-click-area" class="flex items-center space-x-1 cursor-pointer">
-          <img src="logo.png" alt="Ze-Teq" class="h-16 w-auto" />
-          <div class="text-2xl font-bold text-blue-600">Ze-Teq</div>
+        
+  <!-- 드롭다운 전체 박스 -->
+  <div id="logo-dropdown-wrapper" class="absolute top-16 left-10">
+    <!-- 클릭 트리거 포함 -->
+    <div id="logo-click-area" class="flex items-center space-x-2 px-4 py-2 cursor-pointer">
+      <img src="logo.png" alt="Ze-Teq" class="h-10 w-auto" />
+      <div class="text-xl font-semibold text-blue-600">Ze-Teq</div>
+      <svg id="dropdown-arrow" class="w-4 h-4 text-gray-600 transition-transform duration-300 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
+
+    <!-- 드롭다운 콘텐츠 -->
+    <div class="px-4 py-3 border-t border-gray-200">
+      <div class="flex items-center space-x-3">
+        <img src="logo-alt.png" alt="다른 로고" class="h-10 w-auto" />
+        <span class="text-gray-700 font-medium">Ze-Teq 브랜드 로고 변형</span>
+      </div>
+    </div>
+  </div>
+
+
           <!-- 드롭다운 화살표 -->
           <svg id="dropdown-arrow" class="w-4 h-4 text-gray-600 transition-transform duration-300 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -111,14 +115,7 @@
         </div>
       </div>
 
-      <!-- 드롭다운 메뉴 -->
-      <div id="logo-dropdown-menu" class="absolute top-16 left-10 dropdown-enter">
-        <div class="dropdown-tail"></div>
-        <div class="p-4">
-          <img src="logo-alt.png" alt="다른 로고" />
-          <p class="mt-4 text-center text-gray-700 font-semibold">Ze-Teq 브랜드 로고 변형</p>
-        </div>
-      </div>
+      
 
       <!-- 알림 및 로그인 버튼 -->
       <div class="flex items-center space-x-4">
@@ -153,23 +150,23 @@
     });
 
     // 로고 드롭다운 열기/닫기 기능
+    const logoWrapper = document.getElementById('logo-dropdown-wrapper');
     const logoClickArea = document.getElementById('logo-click-area');
-    const logoMenu = document.getElementById('logo-dropdown-menu');
     const dropdownArrow = document.getElementById('dropdown-arrow');
 
     logoClickArea.addEventListener('click', (e) => {
       e.stopPropagation();
-      const isOpen = logoMenu.classList.contains('dropdown-enter-active');
-      if (isOpen) {
-        logoMenu.classList.remove('dropdown-enter-active');
-        logoMenu.classList.add('dropdown-enter');
+      logoWrapper.classList.toggle('active');
+      dropdownArrow.classList.toggle('rotate-180');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!logoWrapper.contains(e.target)) {
+        logoWrapper.classList.remove('active');
         dropdownArrow.classList.remove('rotate-180');
-      } else {
-        logoMenu.classList.remove('dropdown-enter');
-        logoMenu.classList.add('dropdown-enter-active');
-        dropdownArrow.classList.add('rotate-180');
       }
     });
+
 
     // 외부 클릭 시 드롭다운 닫기
     document.addEventListener('click', (e) => {
