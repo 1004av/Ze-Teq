@@ -64,10 +64,27 @@
       transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
+   
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-fade-in-up {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+    
+
 
   </style>
 </head>
-<body class="bg-white">
+
 
   <!-- 사이드바 메뉴 -->
   <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-300 shadow-lg transform -translate-x-full transition-transform duration-300 z-40">
@@ -86,7 +103,7 @@
   </div>
 
   <!-- 상단 네비게이션 바 -->
-  <nav class="bg-white border-b border-gray-300 sticky top-0 z-50">
+   <nav class="bg-white border-b border-gray-300 sticky top-0 z-50">
     <div class="w-full px-4 flex justify-between items-center h-16">
       <div class="flex items-center space-x-1">
         <!-- 햄버거 버튼 -->
@@ -140,10 +157,73 @@
     </div>
   </nav>
 
-  <!-- 메인 콘텐츠 영역 -->
-  <main class="p-10 text-center text-xl">
-    여기는 홈입니다. 기능을 추가해보세요.
-  </main>
+<main class="bg-gray-50 relative z-10 px-6 py-24 text-center text-gray-800 min-h-[150vh]">
+<h1 class="text-5xl md:text-6xl font-extrabold leading-snug mb-6">
+  <span class="relative inline-block">
+    <span class="relative z-10 text-blue-600">Ze-Teq</span>
+    <svg
+      class="absolute bottom-0 left-0 w-full h-3 z-0"
+      viewBox="0 0 100 10"
+      preserveAspectRatio="none"
+    >
+      <path
+        d="M0,10 Q5,0 10,10 T20,10 T30,10 T40,10 T50,10 T60,10 T70,10 T80,10 T90,10 T100,10"
+        fill="none"
+        stroke="#60a5fa"
+        stroke-width="2"
+      />
+    </svg>
+  </span>
+  <br />
+  <span class="mt-4 inline-block text-orange-500">Z세대의 감각</span>으로 쇼핑을 혁신하다
+</h1>
+
+
+
+    <br />
+    <span class="text-orange-500">
+      Z세대의 감각으로 쇼핑을 혁신하다
+    </span>
+  </h1>
+
+  <p class="text-lg md:text-xl text-gray-600 mb-12">
+    감각적이고 스마트한 커머스 플랫폼, 지금 시작하세요.
+  </p>
+
+  <!-- CTA 버튼 -->
+  <div class="flex justify-center gap-4 flex-wrap mb-20">
+    <a href="/research.html" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition duration-300 shadow-md">
+      리서치 하러가기
+    </a>
+    <button class="border border-blue-600 text-blue-600 px-6 py-3 rounded-full font-semibold text-lg hover:bg-blue-100 transition duration-300">
+      커뮤니티 살펴보기
+    </button>
+  </div>
+
+  <!-- 카드 섹션 -->
+  <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- 카드 1 -->
+    <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300">
+      <h3 class="text-xl font-bold text-blue-600 mb-2">📈 요즘 뭐가 핫해?</h3>
+      <p class="text-gray-600 text-sm">SNS 기반 실시간 키워드 분석 제공</p>
+    </div>
+
+    <!-- 카드 2 -->
+    <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300">
+      <h3 class="text-xl font-bold text-blue-600 mb-2">💰 마진 분석 끝판왕</h3>
+      <p class="text-gray-600 text-sm">상품별 수익 계산과 경쟁도 분석 자동화</p>
+    </div>
+
+    <!-- 카드 3 -->
+    <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300">
+      <h3 class="text-xl font-bold text-blue-600 mb-2">🎯 Z세대 커뮤니티</h3>
+      <p class="text-gray-600 text-sm">Z세대 셀러들이 모여 트렌드를 나눠요</p>
+    </div>
+  </div>
+</main>
+
+
+  
 
   <script>
     // 사이드바 토글 기능
