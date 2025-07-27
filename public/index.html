@@ -81,8 +81,7 @@
       animation: fadeInUp 0.8s ease-out forwards;
     }
 
-   
-   
+    
 
   </style>
 </head>
@@ -158,24 +157,34 @@
       </div>
     </div>
   </nav>
-<!-- 홈 화면 -->
-<main class="bg-gray-50 relative z-10 px-6 py-24 text-center text-gray-800 min-h-[150vh]">
-<h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-snug text-center">
-  <!-- 기존 형광펜 효과 텍스트 -->
-  <span class="relative inline-block mb-4 text-blue-600">
-    <span class="relative z-10">Ze-Teq와 함께</span>
-    <span class="absolute left-0 bottom-1 w-full h-3 bg-blue-300 opacity-90 z-0 rounded-sm"></span>
-  </span>
-  <br />
-
-  <!-- Hover 형광펜 애니메이션 -->
-  <span class="relative inline-block text-black group cursor-pointer overflow-hidden">
-    <span class="relative z-10">Z세대의 감각으로 쇼핑을 혁신하다</span>
-    <span class="absolute left-0 top-0 h-full w-full bg-blue-200 opacity-60 z-0 rounded-sm transform scale-x-0 origin-left transition-transform duration-500 ease-in-out group-hover:scale-x-100"></span>
-  </span>
-</h1>
 
 
+<main class="relative bg-gray-50 z-0 px-6 py-24 text-center text-gray-800 min-h-[150vh] overflow-hidden">
+
+<!-- 꺾은선 배경 -->
+<!-- 배경 꺾은선 그래프 -->
+<div class="absolute top-[8%] left-0 w-full h-56 z-[-1] pointer-events-none overflow-hidden">
+  <svg id="graph-svg" viewBox="0 0 1000 200" preserveAspectRatio="none" class="w-full h-full">
+    <polyline id="line1" stroke="rgba(239, 68, 68, 0.6)" stroke-width="1" fill="none" />
+    <polyline id="line2" stroke="rgba(239, 68, 68, 0.4)" stroke-width="1" fill="none" />
+    <polyline id="line3" stroke="rgba(239, 68, 68, 0.2)" stroke-width="1" fill="none" />
+  </svg>
+</div>
+
+
+
+  <!-- ✅ 텍스트 및 콘텐츠 -->
+  <h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-snug text-center">
+    <span class="relative inline-block mb-4 text-blue-600">
+      <span class="relative z-10">Ze-Teq와 함께</span>
+      <span class="absolute left-0 bottom-1 w-full h-3 bg-blue-300 opacity-90 z-0 rounded-sm"></span>
+    </span>
+    <br />
+    <span class="relative inline-block text-black group cursor-pointer overflow-hidden">
+      <span class="relative z-10">Z세대의 감각으로 쇼핑을 혁신하다</span>
+      <span class="absolute left-0 top-0 h-full w-full bg-blue-200 opacity-60 z-0 rounded-sm transform scale-x-0 origin-left transition-transform duration-500 ease-in-out group-hover:scale-x-100"></span>
+    </span>
+  </h1>
 
   <p class="text-lg md:text-xl text-gray-600 mb-12">
     감각적이고 스마트한 커머스 플랫폼, 지금 시작하세요.
@@ -186,7 +195,7 @@
     <a href="/research.html" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition duration-300 shadow-md">
       리서치 하러가기
     </a>
-    <button class="border border-orange-500 text-orange-500 px-6 py-3 rounded-full font-semibold text-lg hover:bg-orange-100 transition duration-300">
+    <button class="bg-gray-50 border border-orange-500 text-orange-500 px-6 py-3 rounded-full font-semibold text-lg hover:bg-orange-100 transition duration-300">
       커뮤니티 살펴보기
     </button>
   </div>
@@ -209,6 +218,80 @@
     </div>
   </div>
 </main>
+
+<svg class="absolute inset-0 w-full h-full z-[-1] pointer-events-none"
+     viewBox="0 0 1000 200" preserveAspectRatio="none">
+  <polyline id="line1" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.9" />
+  <polyline id="line2" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.9" />
+  <polyline id="line3" fill="none" stroke="#ef4444" stroke-width="1" opacity="0.9" />
+</svg>
+
+
+<style>
+@keyframes drawLine {
+  0%   { stroke-dashoffset: 1000; }
+  40%  { stroke-dashoffset: 0; }
+  80%  { stroke-dashoffset: 0; }
+  100% { stroke-dashoffset: -1000; }
+}
+.animate-graph {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: drawLine 2.5s ease-in-out forwards;
+}
+</style>
+
+<script>
+function generateRisingLinePoints(maxX = 1000) {
+  const segments = Math.floor(6 + Math.random() * 6); // 6 ~ 11
+  const xStep = maxX / segments;
+  let y = 180 + Math.random() * 10;
+  let points = [];
+
+  for (let i = 0; i < segments; i++) {
+    const x = i * xStep;
+    y -= 10 + Math.random() * 20;
+    if (y < 20) y = 20;
+    points.push(`${Math.floor(x)},${Math.floor(y)}`);
+  }
+
+  // 마지막 점을 항상 maxX에 두되, y는 조금만 더 상승해 다르게 만듬
+  y -= 10 + Math.random() * 20;
+  if (y < 20) y = 20;
+  points.push(`${maxX},${Math.floor(y)}`);
+
+  return points.join(" ");
+}
+
+function animateLine(id, delay = 0) {
+  const line = document.getElementById(id);
+
+  const cycle = () => {
+    line.classList.remove("animate-graph");
+    line.setAttribute("points", "");
+
+     setTimeout(() => {
+      const maxX = 1000; // 화면 끝까지
+      const points = generateRisingLinePoints(maxX);
+      line.setAttribute("points", points);
+      void line.offsetWidth;
+      line.classList.add("animate-graph");
+    }, 100);
+
+  };
+
+  setTimeout(() => {
+    cycle();
+    setInterval(cycle, 3000);
+  }, delay);
+}
+
+animateLine("line1", 0);
+animateLine("line2", 600);
+animateLine("line3", 1200);
+</script>
+
+
 
 
 
