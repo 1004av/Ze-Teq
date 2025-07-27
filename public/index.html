@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -79,8 +80,9 @@
     .animate-fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
     }
-    
 
+   
+   
 
   </style>
 </head>
@@ -158,33 +160,22 @@
   </nav>
 
 <main class="bg-gray-50 relative z-10 px-6 py-24 text-center text-gray-800 min-h-[150vh]">
-<h1 class="text-5xl md:text-6xl font-extrabold leading-snug mb-6">
-  <span class="relative inline-block">
-    <span class="relative z-10 text-blue-600">Ze-Teq</span>
-    <svg
-      class="absolute bottom-0 left-0 w-full h-3 z-0"
-      viewBox="0 0 100 10"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0,10 Q5,0 10,10 T20,10 T30,10 T40,10 T50,10 T60,10 T70,10 T80,10 T90,10 T100,10"
-        fill="none"
-        stroke="#60a5fa"
-        stroke-width="2"
-      />
-    </svg>
+<h1 class="text-5xl md:text-6xl font-extrabold mb-6 leading-snug text-center">
+  <!-- 기존 형광펜 효과 텍스트 -->
+  <span class="relative inline-block mb-4 text-blue-600">
+    <span class="relative z-10">Ze-Teq와 함께</span>
+    <span class="absolute left-0 bottom-1 w-full h-3 bg-blue-300 opacity-90 z-0 rounded-sm"></span>
   </span>
   <br />
-  <span class="mt-4 inline-block text-orange-500">Z세대의 감각</span>으로 쇼핑을 혁신하다
+
+  <!-- Hover 형광펜 애니메이션 -->
+  <span class="relative inline-block text-black group cursor-pointer overflow-hidden">
+    <span class="relative z-10">Z세대의 감각으로 쇼핑을 혁신하다</span>
+    <span class="absolute left-0 top-0 h-full w-full bg-blue-200 opacity-60 z-0 rounded-sm transform scale-x-0 origin-left transition-transform duration-500 ease-in-out group-hover:scale-x-100"></span>
+  </span>
 </h1>
 
 
-
-    <br />
-    <span class="text-orange-500">
-      Z세대의 감각으로 쇼핑을 혁신하다
-    </span>
-  </h1>
 
   <p class="text-lg md:text-xl text-gray-600 mb-12">
     감각적이고 스마트한 커머스 플랫폼, 지금 시작하세요.
@@ -195,32 +186,31 @@
     <a href="/research.html" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-blue-700 transition duration-300 shadow-md">
       리서치 하러가기
     </a>
-    <button class="border border-blue-600 text-blue-600 px-6 py-3 rounded-full font-semibold text-lg hover:bg-blue-100 transition duration-300">
+    <button class="border border-orange-500 text-orange-500 px-6 py-3 rounded-full font-semibold text-lg hover:bg-orange-100 transition duration-300">
       커뮤니티 살펴보기
     </button>
   </div>
 
   <!-- 카드 섹션 -->
   <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- 카드 1 -->
     <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300">
       <h3 class="text-xl font-bold text-blue-600 mb-2">📈 요즘 뭐가 핫해?</h3>
       <p class="text-gray-600 text-sm">SNS 기반 실시간 키워드 분석 제공</p>
     </div>
 
-    <!-- 카드 2 -->
     <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300">
       <h3 class="text-xl font-bold text-blue-600 mb-2">💰 마진 분석 끝판왕</h3>
       <p class="text-gray-600 text-sm">상품별 수익 계산과 경쟁도 분석 자동화</p>
     </div>
 
-    <!-- 카드 3 -->
     <div class="bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition duration-300">
       <h3 class="text-xl font-bold text-blue-600 mb-2">🎯 Z세대 커뮤니티</h3>
       <p class="text-gray-600 text-sm">Z세대 셀러들이 모여 트렌드를 나눠요</p>
     </div>
   </div>
 </main>
+
+
 
 
   
@@ -283,4 +273,7 @@
 
 </body>
 </html>
+
+
+
 
