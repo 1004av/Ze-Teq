@@ -3,12 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>상품 리서치 | Ze-Teq</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
-<body class="bg-gray-50 text-gray-800">
+  <title>상품 리서치 - Ze-Teq</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* 홈에서 쓰던 스타일 그대로 복사 */
+    .custom-btn {
+      width: 60px;
+      height: 40px;
+      border: 3px solid #315cfd;
+      border-radius: 45px;
+      transition: all 0.3s;
+      cursor: pointer;
+      background: white;
+      font-size: 0.8em;
+      font-weight: 550;
+    }
 
-  <!-- 🔍 키워드 검색 영역 -->
+    .custom-btn:hover {
+      background: #315cfd;
+      color: white;
+    }
+
+    #logo-dropdown-menu {
+      background: #ffffffee;
+      box-shadow: 0 10px 15px -3px rgba(49, 92, 253, 0.4), 0 4px 6px -2px rgba(49, 92, 253, 0.25);
+      border-radius: 20px;
+      border: 1px solid #cbd5e1;
+      padding: 20px;
+      width: 220px;
+      user-select: none;
+      z-index: 999;
+      position: absolute;
+      top: 100%;
+      margin-top: 0.5rem;
+    }
+
+    .dropdown-enter {
+      opacity: 0;
+      transform: translateY(-15px);
+      pointer-events: none;
+    }
+    .dropdown-enter-active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .dropdown-leave-active {
+      opacity: 0;
+      transform: translateY(-15px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+
+  <!-- ✅ 사이드바 -->
+  <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-300 shadow-lg transform -translate-x-full transition-transform duration-300 z-40">
+    <div class="p-6">
+      <h2 class="text-2xl font-bold text-blue-600 mb-6">메뉴</h2>
+      <ul class="space-y-1">
+        <li><a href="/" class="block px-4 py-2 rounded-md hover:bg-gray-200 text-gray-700">홈</a></li>
+        <li><a href="research.html" class="block px-4 py-2 rounded-md bg-gray-300 text-blue-700 font-semibold">상품 리서치</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ✅ 상단 네비게이션 바 -->
+  <nav class="bg-white border-b border-gray-300 sticky top-0 z-50">
+    <div class="w-full px-4 flex justify-between items-center h-16">
+      <div class="flex items-center space-x-1">
+        <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+          <svg id="icon-menu" class="w-6 h-6 block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <div id="logo-click-area" class="flex items-center space-x-1 cursor-pointer">
+          <img src="logo.png" alt="Ze-Teq" class="h-16 w-auto" />
+          <div class="text-2xl font-bold text-blue-600">Ze-Teq</div>
+          <svg id="dropdown-arrow" class="w-4 h-4 text-gray-600 transition-transform duration-300 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- 로그인 / 알림 -->
+      <div class="flex items-center space-x-4">
+        <button class="relative text-gray-700 hover:text-blue-600 focus:outline-none">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 22c1.1046 0 2-.8954 2-2h-4c0 1.1046.8954 2 2 2zM18 16v-5c0-3.314-2.686-6-6-6s-6 2.686-6 6v5l-2 2h16l-2-2z" />
+          </svg>
+        </button>
+        <button class="custom-btn">로그인</button>
+      </div>
+    </div>
+
+    <!-- 로고 드롭다운 -->
+    <div id="logo-dropdown-menu" class="dropdown-enter">
+      <div class="logo-box">
+        <div class="flex items-center space-x-1">
+          <img src="logo2.png" alt="Ze-Teq" class="h-16 w-auto" />
+          <div class="text-2xl font-bold text-orange-500">Ze-Teq</div>
+        </div>
+        <div class="mt-1 text-center text-xs text-gray-400 tracking-wide">COMMUNITY</div>
+      </div>
+    </div>
+  </nav>
+
+<!-- 🔍 키워드 검색 영역 -->
   <section class="max-w-4xl mx-auto mt-12 px-4">
     <h1 class="text-3xl font-bold mb-4">상품 리서치</h1>
     <div class="flex gap-2 mb-6">
@@ -108,5 +216,57 @@
     });
   </script>
 
+</body>
+
+  <!-- ✅ 드롭다운 & 사이드바 JS -->
+  <script>
+    const toggleButton = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const iconMenu = document.getElementById('icon-menu');
+    const iconClose = document.getElementById('icon-close');
+
+    toggleButton.addEventListener('click', () => {
+      sidebar.classList.toggle('-translate-x-full');
+      iconMenu.classList.toggle('hidden');
+      iconClose.classList.toggle('hidden');
+    });
+
+    const logoClickArea = document.getElementById('logo-click-area');
+    const logoMenu = document.getElementById('logo-dropdown-menu');
+    const dropdownArrow = document.getElementById('dropdown-arrow');
+
+    logoClickArea.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = logoMenu.classList.contains('dropdown-enter-active');
+
+      if (isOpen) {
+        logoMenu.classList.remove('dropdown-enter-active');
+        logoMenu.classList.add('dropdown-leave-active');
+        dropdownArrow.classList.remove('rotate-180');
+        setTimeout(() => {
+          logoMenu.classList.remove('dropdown-leave-active');
+          logoMenu.classList.add('dropdown-enter');
+        }, 300);
+      } else {
+        logoMenu.classList.remove('dropdown-enter', 'dropdown-leave-active');
+        logoMenu.classList.add('dropdown-enter-active');
+        dropdownArrow.classList.add('rotate-180');
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!logoClickArea.contains(e.target) && !logoMenu.contains(e.target)) {
+        if (logoMenu.classList.contains('dropdown-enter-active')) {
+          logoMenu.classList.remove('dropdown-enter-active');
+          logoMenu.classList.add('dropdown-leave-active');
+          dropdownArrow.classList.remove('rotate-180');
+          setTimeout(() => {
+            logoMenu.classList.remove('dropdown-leave-active');
+            logoMenu.classList.add('dropdown-enter');
+          }, 300);
+        }
+      }
+    });
+  </script>
 </body>
 </html>
