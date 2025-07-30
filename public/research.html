@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>상품 리서치 - Ze-Teq</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     /* 홈에서 쓰던 스타일 그대로 복사 */
     .custom-btn {
@@ -116,7 +117,7 @@
     </div>
   </nav>
 
-<!-- 🔍 키워드 검색 영역 -->
+   <!-- 🔍 키워드 검색 영역 -->
   <section class="max-w-4xl mx-auto mt-12 px-4">
     <h1 class="text-3xl font-bold mb-4">상품 리서치</h1>
     <div class="flex gap-2 mb-6">
@@ -140,6 +141,16 @@
     <div>
       <h2 class="text-2xl font-bold mb-2">📈 키워드 트렌드</h2>
       <div class="bg-white rounded-xl p-4 shadow-md">
+        <!-- 기간 선택 -->
+        <div class="flex flex-wrap items-center gap-2 mb-4">
+          <button class="trend-btn text-sm px-3 py-1 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200" onclick="setTrendRange('1w')">1주</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1m')">1달</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('6m')">6달</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1y')">1년</button>
+          <input type="date" id="customStart" class="border rounded px-2 py-1 text-sm" />
+          <input type="date" id="customEnd" class="border rounded px-2 py-1 text-sm" />
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('custom')">적용</button>
+        </div>
         <canvas id="trendChart" class="w-full h-64"></canvas>
       </div>
     </div>
@@ -148,8 +159,7 @@
     <div>
       <h2 class="text-2xl font-bold mb-2">🔥 인기 상품</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productGrid">
-        <!-- 상품 카드 예시 -->
-        <!-- JS로 동적으로 생성 -->
+        <!-- JS로 동적으로 생성될 자리 -->
       </div>
     </div>
 
@@ -180,7 +190,7 @@
 
   </section>
 
-  <!-- 📁 내 리서치 저장/공유 -->
+  <!-- 📁 리서치 저장/공유 -->
   <section class="max-w-4xl mx-auto mt-16 px-4 pb-24">
     <h2 class="text-2xl font-bold mb-2">📁 리서치 저장 & 공유</h2>
     <div class="flex gap-4">
@@ -189,10 +199,7 @@
     </div>
   </section>
 
-  <!-- 📊 차트용 스크립트 로딩 -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // 차트 초기화 예시
     const ctx = document.getElementById('trendChart').getContext('2d');
     const trendChart = new Chart(ctx, {
       type: 'line',
@@ -214,9 +221,39 @@
         }
       }
     });
+
+    function setTrendRange(range) {
+      
+      let labels = [];
+      let data = [];
+
+      if (range === '1w') {
+        labels = ['7일 전', '6일 전', '5일 전', '4일 전', '3일 전', '2일 전', '어제'];
+        data = [12, 19, 14, 20, 24, 28, 40];
+      } else if (range === '1m') {
+        labels = Array.from({ length: 30 }, (_, i) => `${30 - i}일 전`);
+        data = labels.map(() => Math.floor(Math.random() * 50 + 10));
+      } else if (range === '6m') {
+        labels = ['6개월 전', '5개월 전', '4개월 전', '3개월 전', '2개월 전', '1개월 전', '현재'];
+        data = labels.map(() => Math.floor(Math.random() * 200 + 50));
+      } else if (range === '1y') {
+        labels = Array.from({ length: 12 }, (_, i) => `${12 - i}월 전`);
+        data = labels.map(() => Math.floor(Math.random() * 300 + 100));
+      } else if (range === 'custom') {
+        const start = new Date(document.getElementById('customStart').value);
+        const end = new Date(document.getElementById('customEnd').value);
+        const diff = Math.floor((end - start) / (1000 * 60 * 60 * 24));
+        if (isNaN(diff) || diff <= 0) return alert('유효한 기간을 선택하세요.');
+        labels = Array.from({ length: diff + 1 }, (_, i) => `${i}일 전`);
+        data = labels.map(() => Math.floor(Math.random() * 100 + 10));
+      }
+
+      trendChart.data.labels = labels;
+      trendChart.data.datasets[0].data = data;
+      trendChart.update();
+    }
   </script>
 
-</body>
 
   <!-- ✅ 드롭다운 & 사이드바 JS -->
   <script>
