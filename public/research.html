@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>상품 리서치 | Ze-Teq</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- 🔍 키워드 검색 영역 -->
+  <section class="max-w-4xl mx-auto mt-12 px-4">
+    <h1 class="text-3xl font-bold mb-4">상품 리서치</h1>
+    <div class="flex gap-2 mb-6">
+      <input 
+        type="text" 
+        placeholder="키워드를 입력하세요 (예: 크롭 후드)"
+        class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        id="keywordInput"
+      />
+      <button 
+        class="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
+        id="searchBtn"
+      >검색</button>
+    </div>
+  </section>
+
+  <!-- 📈 리서치 결과 영역 -->
+  <section id="results" class="max-w-6xl mx-auto px-4 space-y-12">
+
+    <!-- ① 키워드 트렌드 -->
+    <div>
+      <h2 class="text-2xl font-bold mb-2">📈 키워드 트렌드</h2>
+      <div class="bg-white rounded-xl p-4 shadow-md">
+        <canvas id="trendChart" class="w-full h-64"></canvas>
+      </div>
+    </div>
+
+    <!-- ② 인기 상품 리스트 -->
+    <div>
+      <h2 class="text-2xl font-bold mb-2">🔥 인기 상품</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productGrid">
+        <!-- 상품 카드 예시 -->
+        <!-- JS로 동적으로 생성 -->
+      </div>
+    </div>
+
+    <!-- ③ 경쟁 분석 -->
+    <div>
+      <h2 class="text-2xl font-bold mb-2">⚔️ 경쟁 분석</h2>
+      <div class="bg-white rounded-xl p-6 shadow-md space-y-4">
+        <p>🛒 판매자 수: <span id="sellerCount">-</span></p>
+        <p>💰 가격대 분포: <span id="priceRange">-</span></p>
+        <p>📊 마진 추정: <span id="profitEstimate">-</span></p>
+      </div>
+    </div>
+
+    <!-- ④ SNS 트렌드 -->
+    <div>
+      <h2 class="text-2xl font-bold mb-2">📱 SNS 트렌드</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded-xl shadow-md">
+          <p>📸 인스타 해시태그 수: <span id="hashtagCount">-</span></p>
+          <p>🎵 틱톡 영상 수: <span id="tiktokCount">-</span></p>
+        </div>
+        <div class="bg-white p-4 rounded-xl shadow-md">
+          <p>💬 감성 분석 요약:</p>
+          <p id="sentimentSummary" class="mt-2 text-gray-600">-</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- 📁 내 리서치 저장/공유 -->
+  <section class="max-w-4xl mx-auto mt-16 px-4 pb-24">
+    <h2 class="text-2xl font-bold mb-2">📁 리서치 저장 & 공유</h2>
+    <div class="flex gap-4">
+      <button class="bg-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 transition">내 리서치 저장</button>
+      <button class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-200 transition">공유 링크 만들기</button>
+    </div>
+  </section>
+
+  <!-- 📊 차트용 스크립트 로딩 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    // 차트 초기화 예시
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    const trendChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['7일 전', '6일 전', '5일 전', '4일 전', '3일 전', '2일 전', '어제'],
+        datasets: [{
+          label: '검색량',
+          data: [12, 19, 14, 20, 24, 28, 40],
+          borderColor: '#3b82f6',
+          backgroundColor: 'rgba(59,130,246,0.1)',
+          fill: true,
+          tension: 0.4,
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
