@@ -6,65 +6,10 @@
   <title>상품 리서치 - Ze-Teq</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    .custom-btn {
-      width: 60px;
-      height: 40px;
-      border: 3px solid #315cfd;
-      border-radius: 45px;
-      transition: all 0.3s;
-      cursor: pointer;
-      background: white;
-      font-size: 0.8em;
-      font-weight: 550;
-    }
-
-    .custom-btn:hover {
-      background: #315cfd;
-      color: white;
-    }
-
-    #logo-dropdown-menu {
-      background: #ffffffee;
-      box-shadow:
-        0 10px 15px -3px rgba(49, 92, 253, 0.4),
-        0 4px 6px -2px rgba(49, 92, 253, 0.25);
-      border-radius: 20px;
-      border: 1px solid #cbd5e1;
-      padding: 20px;
-      width: 220px;
-      user-select: none;
-      z-index: 999;
-      position: absolute;
-      
-      top: 100%;
-      margin-top: 0.5rem;
-      left: 0.75rem;
-      
-    }
-
-    .dropdown-enter {
-      opacity: 0;
-      transform: translateY(-15px);
-      pointer-events: none;
-    }
-    .dropdown-enter-active {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-    .dropdown-leave-active {
-      opacity: 0;
-      transform: translateY(-15px);
-      pointer-events: none;
-      transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-  </style>
 </head>
 
 <body class="bg-gray-50">
-  <!-- ✅ 사이드바 -->
+  <!-- 사이드바 -->
   <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-300 shadow-lg transform -translate-x-full transition-transform duration-300 z-40">
     <div class="p-6">
       <h2 class="text-2xl font-bold text-blue-600 mb-6">메뉴</h2>
@@ -75,7 +20,7 @@
     </div>
   </div>
 
-  <!-- ✅ 상단 네비게이션 바 -->
+  <!-- 네비게이션 -->
   <nav class="bg-white border-b border-gray-300 sticky top-0 z-50">
     <div class="w-full px-4 flex justify-between items-center h-16">
       <div class="flex items-center space-x-1">
@@ -96,47 +41,25 @@
         </div>
       </div>
       <div class="flex items-center space-x-4">
-        <button class="relative text-gray-700 hover:text-blue-600 focus:outline-none">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 22c1.1046 0 2-.8954 2-2h-4c0 1.1046.8954 2 2 2zM18 16v-5c0-3.314-2.686-6-6-6s-6 2.686-6 6v5l-2 2h16l-2-2z" />
-          </svg>
-        </button>
         <button class="custom-btn">로그인</button>
-      </div>
-    </div>
-    <div id="logo-dropdown-menu" class="dropdown-enter">
-      <div class="logo-box">
-        <div class="flex items-center space-x-1">
-          <img src="logo2.png" alt="Ze-Teq" class="h-16 w-auto" />
-          <div class="text-2xl font-bold text-orange-500">Ze-Teq</div>
-        </div>
-        <div class="mt-1 text-center text-xs text-gray-400 tracking-wide">COMMUNITY</div>
       </div>
     </div>
   </nav>
 
+  <!-- 메인 섹션 -->
   <section class="max-w-4xl mx-auto mt-12 px-4">
     <h1 class="text-3xl font-bold mb-4">상품 리서치</h1>
     <div class="flex gap-2 mb-6">
       <input type="text" placeholder="키워드를 입력하세요 (예: 크롭 후드)" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="keywordInput" />
-      <button class="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition whitespace-nowrap" id="searchBtn">검색</button>
+      <button class="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" id="searchBtn">검색</button>
     </div>
   </section>
 
   <section id="results" class="max-w-6xl mx-auto px-4 space-y-12">
-    <!-- 📈 키워드 트렌드 -->
+    <!-- 📈 트렌드 차트 -->
     <div>
       <h2 class="text-2xl font-bold mb-2">📈 키워드 트렌드</h2>
       <div class="bg-white rounded-xl p-4 shadow-md">
-        <div class="flex flex-wrap items-center gap-2 mb-4">
-          <button class="trend-btn text-sm px-3 py-1 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200" onclick="setTrendRange('1w', this)">1주</button>
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1m', this)">1달</button>
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('6m', this)">6달</button>
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1y', this)">1년</button>
-          <input type="date" id="customStart" class="border rounded px-2 py-1 text-sm" />
-          <input type="date" id="customEnd" class="border rounded px-2 py-1 text-sm" />
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('custom', this)">적용</button>
-        </div>
         <canvas id="trendChart" class="w-full h-64"></canvas>
       </div>
     </div>
@@ -146,33 +69,9 @@
       <h2 class="text-2xl font-bold mb-2">🔥 인기 상품</h2>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productGrid"></div>
     </div>
-
-    <!-- ⚔️ 경쟁 분석 -->
-    <div>
-      <h2 class="text-2xl font-bold mb-2">⚔️ 경쟁 분석</h2>
-      <div class="bg-white rounded-xl p-6 shadow-md space-y-4">
-        <p>🛒 판매자 수: <span id="sellerCount">-</span></p>
-        <p>💰 가격대 분포: <span id="priceRange">-</span></p>
-        <p>📊 마진 추정: <span id="profitEstimate">-</span></p>
-      </div>
-    </div>
-
-    <!-- 📱 SNS 트렌드 -->
-    <div>
-      <h2 class="text-2xl font-bold mb-2">📱 SNS 트렌드</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <p>📸 인스타 해시태그 수: <span id="hashtagCount">-</span></p>
-          <p>🎵 틱톡 영상 수: <span id="tiktokCount">-</span></p>
-        </div>
-        <div class="bg-white p-4 rounded-xl shadow-md">
-          <p>💬 감성 분석 요약:</p>
-          <p id="sentimentSummary" class="mt-2 text-gray-600">-</p>
-        </div>
-      </div>
-    </div>
   </section>
 
+  <!-- 리서치 저장 -->
   <section class="max-w-4xl mx-auto mt-16 px-4 pb-24">
     <h2 class="text-2xl font-bold mb-2">📁 리서치 저장 & 공유</h2>
     <div class="flex gap-4">
@@ -181,6 +80,7 @@
     </div>
   </section>
 
+  <!-- 차트 초기화 -->
   <script>
     const ctx = document.getElementById('trendChart').getContext('2d');
     const trendChart = new Chart(ctx, {
@@ -198,50 +98,48 @@
       },
       options: {
         responsive: true,
-        scales: {
-          y: { beginAtZero: true }
-        }
+        scales: { y: { beginAtZero: true } }
       }
     });
-
-    function setTrendRange(range, btn) {
-      document.querySelectorAll('.trend-btn').forEach(b => {
-        b.classList.remove('bg-blue-100', 'text-blue-600');
-        b.classList.add('bg-gray-100', 'text-black');
-      });
-      btn.classList.remove('bg-gray-100', 'text-black');
-      btn.classList.add('bg-blue-100', 'text-blue-600');
-
-      let labels = [];
-      let data = [];
-
-      if (range === '1w') {
-        labels = ['7일 전', '6일 전', '5일 전', '4일 전', '3일 전', '2일 전', '어제'];
-        data = [12, 19, 14, 20, 24, 28, 40];
-      } else if (range === '1m') {
-        labels = Array.from({ length: 30 }, (_, i) => `${30 - i}일 전`);
-        data = labels.map(() => Math.floor(Math.random() * 50 + 10));
-      } else if (range === '6m') {
-        labels = ['6개월 전', '5개월 전', '4개월 전', '3개월 전', '2개월 전', '1개월 전', '현재'];
-        data = labels.map(() => Math.floor(Math.random() * 200 + 50));
-      } else if (range === '1y') {
-        labels = Array.from({ length: 12 }, (_, i) => `${12 - i}월 전`);
-        data = labels.map(() => Math.floor(Math.random() * 300 + 100));
-      } else if (range === 'custom') {
-        const start = new Date(document.getElementById('customStart').value);
-        const end = new Date(document.getElementById('customEnd').value);
-        const diff = Math.floor((end - start) / (1000 * 60 * 60 * 24));
-        if (isNaN(diff) || diff <= 0) return alert('유효한 기간을 선택하세요.');
-        labels = Array.from({ length: diff + 1 }, (_, i) => `${i}일 전`);
-        data = labels.map(() => Math.floor(Math.random() * 100 + 10));
-      }
-
-      trendChart.data.labels = labels;
-      trendChart.data.datasets[0].data = data;
-      trendChart.update();
-    }
   </script>
 
+  <!-- 검색 API 요청 -->
+  <script>
+    document.getElementById('searchBtn').addEventListener('click', async () => {
+      const keyword = document.getElementById('keywordInput').value.trim();
+      if (!keyword) {
+        alert('검색어를 입력하세요.');
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/search?query=${encodeURIComponent(keyword)}`);
+        const data = await response.json();
+        const productGrid = document.getElementById('productGrid');
+        productGrid.innerHTML = '';
+
+        if (!data.length) {
+          productGrid.innerHTML = '<p class="text-gray-500 col-span-3">검색 결과가 없습니다.</p>';
+          return;
+        }
+
+        data.forEach(product => {
+          const div = document.createElement('div');
+          div.className = 'p-4 bg-white rounded-xl shadow';
+          div.innerHTML = `
+            <h3 class="font-semibold text-lg mb-1">${product.name}</h3>
+            <p class="text-gray-700">${product.price.toLocaleString()}원</p>
+          `;
+          productGrid.appendChild(div);
+        });
+      } catch (error) {
+        console.error('검색 실패:', error);
+        alert('검색 중 오류가 발생했습니다.');
+      }
+    });
+  </script>
+
+  <!-- 사이드바 toggle -->
   <script>
     const toggleButton = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
@@ -252,42 +150,6 @@
       sidebar.classList.toggle('-translate-x-full');
       iconMenu.classList.toggle('hidden');
       iconClose.classList.toggle('hidden');
-    });
-
-    const logoClickArea = document.getElementById('logo-click-area');
-    const logoMenu = document.getElementById('logo-dropdown-menu');
-    const dropdownArrow = document.getElementById('dropdown-arrow');
-
-    logoClickArea.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = logoMenu.classList.contains('dropdown-enter-active');
-      if (isOpen) {
-        logoMenu.classList.remove('dropdown-enter-active');
-        logoMenu.classList.add('dropdown-leave-active');
-        dropdownArrow.classList.remove('rotate-180');
-        setTimeout(() => {
-          logoMenu.classList.remove('dropdown-leave-active');
-          logoMenu.classList.add('dropdown-enter');
-        }, 300);
-      } else {
-        logoMenu.classList.remove('dropdown-enter', 'dropdown-leave-active');
-        logoMenu.classList.add('dropdown-enter-active');
-        dropdownArrow.classList.add('rotate-180');
-      }
-    });
-
-    document.addEventListener('click', (e) => {
-      if (!logoClickArea.contains(e.target) && !logoMenu.contains(e.target)) {
-        if (logoMenu.classList.contains('dropdown-enter-active')) {
-          logoMenu.classList.remove('dropdown-enter-active');
-          logoMenu.classList.add('dropdown-leave-active');
-          dropdownArrow.classList.remove('rotate-180');
-          setTimeout(() => {
-            logoMenu.classList.remove('dropdown-leave-active');
-            logoMenu.classList.add('dropdown-enter');
-          }, 300);
-        }
-      }
     });
   </script>
 </body>
