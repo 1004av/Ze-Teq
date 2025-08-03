@@ -7,7 +7,6 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* 홈에서 쓰던 스타일 그대로 복사 */
     .custom-btn {
       width: 60px;
       height: 40px;
@@ -60,7 +59,6 @@
 </head>
 
 <body class="bg-gray-50">
-
   <!-- ✅ 사이드바 -->
   <div id="sidebar" class="fixed top-0 left-0 h-full w-64 bg-white border-r border-gray-300 shadow-lg transform -translate-x-full transition-transform duration-300 z-40">
     <div class="p-6">
@@ -84,7 +82,6 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-
         <div id="logo-click-area" class="flex items-center space-x-1 cursor-pointer">
           <img src="logo.png" alt="Ze-Teq" class="h-16 w-auto" />
           <div class="text-2xl font-bold text-blue-600">Ze-Teq</div>
@@ -93,8 +90,6 @@
           </svg>
         </div>
       </div>
-
-      <!-- 로그인 / 알림 -->
       <div class="flex items-center space-x-4">
         <button class="relative text-gray-700 hover:text-blue-600 focus:outline-none">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -104,8 +99,6 @@
         <button class="custom-btn">로그인</button>
       </div>
     </div>
-
-    <!-- 로고 드롭다운 -->
     <div id="logo-dropdown-menu" class="dropdown-enter">
       <div class="logo-box">
         <div class="flex items-center space-x-1">
@@ -117,53 +110,39 @@
     </div>
   </nav>
 
-   <!-- 🔍 키워드 검색 영역 -->
   <section class="max-w-4xl mx-auto mt-12 px-4">
     <h1 class="text-3xl font-bold mb-4">상품 리서치</h1>
     <div class="flex gap-2 mb-6">
-      <input 
-        type="text" 
-        placeholder="키워드를 입력하세요 (예: 크롭 후드)"
-        class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        id="keywordInput"
-      />
-      <button 
-        class="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition"
-        id="searchBtn"
-      >검색</button>
+      <input type="text" placeholder="키워드를 입력하세요 (예: 크롭 후드)" class="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500" id="keywordInput" />
+      <button class="bg-blue-600 text-white px-5 py-3 rounded-lg font-semibold hover:bg-blue-700 transition" id="searchBtn">검색</button>
     </div>
   </section>
 
-  <!-- 📈 리서치 결과 영역 -->
   <section id="results" class="max-w-6xl mx-auto px-4 space-y-12">
-
-    <!-- ① 키워드 트렌드 -->
+    <!-- 📈 키워드 트렌드 -->
     <div>
       <h2 class="text-2xl font-bold mb-2">📈 키워드 트렌드</h2>
       <div class="bg-white rounded-xl p-4 shadow-md">
-        <!-- 기간 선택 -->
         <div class="flex flex-wrap items-center gap-2 mb-4">
-          <button class="trend-btn text-sm px-3 py-1 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200" onclick="setTrendRange('1w')">1주</button>
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1m')">1달</button>
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('6m')">6달</button>
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1y')">1년</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200" onclick="setTrendRange('1w', this)">1주</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1m', this)">1달</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('6m', this)">6달</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('1y', this)">1년</button>
           <input type="date" id="customStart" class="border rounded px-2 py-1 text-sm" />
           <input type="date" id="customEnd" class="border rounded px-2 py-1 text-sm" />
-          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('custom')">적용</button>
+          <button class="trend-btn text-sm px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full" onclick="setTrendRange('custom', this)">적용</button>
         </div>
         <canvas id="trendChart" class="w-full h-64"></canvas>
       </div>
     </div>
 
-    <!-- ② 인기 상품 리스트 -->
+    <!-- 🔥 인기 상품 -->
     <div>
       <h2 class="text-2xl font-bold mb-2">🔥 인기 상품</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productGrid">
-        <!-- JS로 동적으로 생성될 자리 -->
-      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" id="productGrid"></div>
     </div>
 
-    <!-- ③ 경쟁 분석 -->
+    <!-- ⚔️ 경쟁 분석 -->
     <div>
       <h2 class="text-2xl font-bold mb-2">⚔️ 경쟁 분석</h2>
       <div class="bg-white rounded-xl p-6 shadow-md space-y-4">
@@ -173,7 +152,7 @@
       </div>
     </div>
 
-    <!-- ④ SNS 트렌드 -->
+    <!-- 📱 SNS 트렌드 -->
     <div>
       <h2 class="text-2xl font-bold mb-2">📱 SNS 트렌드</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -187,10 +166,8 @@
         </div>
       </div>
     </div>
-
   </section>
 
-  <!-- 📁 리서치 저장/공유 -->
   <section class="max-w-4xl mx-auto mt-16 px-4 pb-24">
     <h2 class="text-2xl font-bold mb-2">📁 리서치 저장 & 공유</h2>
     <div class="flex gap-4">
@@ -222,8 +199,14 @@
       }
     });
 
-    function setTrendRange(range) {
-      
+    function setTrendRange(range, btn) {
+      document.querySelectorAll('.trend-btn').forEach(b => {
+        b.classList.remove('bg-blue-100', 'text-blue-600');
+        b.classList.add('bg-gray-100', 'text-black');
+      });
+      btn.classList.remove('bg-gray-100', 'text-black');
+      btn.classList.add('bg-blue-100', 'text-blue-600');
+
       let labels = [];
       let data = [];
 
@@ -254,8 +237,6 @@
     }
   </script>
 
-
-  <!-- ✅ 드롭다운 & 사이드바 JS -->
   <script>
     const toggleButton = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
@@ -275,7 +256,6 @@
     logoClickArea.addEventListener('click', (e) => {
       e.stopPropagation();
       const isOpen = logoMenu.classList.contains('dropdown-enter-active');
-
       if (isOpen) {
         logoMenu.classList.remove('dropdown-enter-active');
         logoMenu.classList.add('dropdown-leave-active');
